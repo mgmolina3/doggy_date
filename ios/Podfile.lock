@@ -44,7 +44,6 @@ PODS:
 DEPENDENCIES:
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
-  - FirebaseCore (~> 10.3.0)
   - Flutter (from `Flutter`)
 
 SPEC REPOS:
@@ -77,6 +76,6 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: c9e714f7eec91a55641e2bab9f45fd83a219b882
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
 
-PODFILE CHECKSUM: 3ec6dfe382321d6d05f0ec69a7a1d83e42d7ef14
+PODFILE CHECKSUM: c0cded2ce8e254d70a45dfa288c0e5f7309cc9f3
 
 COCOAPODS: 1.11.2
