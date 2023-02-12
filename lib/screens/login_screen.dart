@@ -1,5 +1,4 @@
-import 'package:flutter/services.dart';
-
+import 'package:page_transition/page_transition.dart';
 import 'profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
 
   bool _submitted = false;
+  bool _isProcessing = false;
 
   // Login function
   static Future<User?> loginUsingEmailPassword(
@@ -138,19 +138,22 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 const Text(
                   "Don't have an account?",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 18.0),
                 ),
                 GestureDetector(
-                  onTap: (() => Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                          builder: (context) => RegisterScreen()))),
+                  onTap: () => Navigator.pushReplacement(
+                    context,
+                    PageTransition(
+                      child: RegisterScreen(),
+                      type: PageTransitionType.rightToLeftJoined,
+                      childCurrent: LoginScreen(),
+                    ),
+                  ),
                   child: const Text(
-                    " Create account",
+                    " Create one now!",
                     style: TextStyle(
-                      color: Color.fromARGB(204, 244, 60, 127),
-                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(204, 255, 3, 95),
+                      fontSize: 18.0,
                     ),
                   ),
                 ),
@@ -164,23 +167,34 @@ class _LoginScreenState extends State<LoginScreen> {
               child: ElevatedButton(
                 onPressed: () async {
                   setState(() => _submitted = true);
-                  if (_emailController.value.text.isNotEmpty) {
+                  if (_emailController.value.text.isNotEmpty &&
+                      _passwordController.value.text.isNotEmpty) {
+                    setState(() => _isProcessing = true);
                     User? user = await loginUsingEmailPassword(
                         email: _emailController.text,
                         password: _passwordController.text,
                         context: context);
+                    setState(() => _isProcessing = false);
                     if (user != null) {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (context) => ProfileScreen()));
                     }
                   } else {
-                    print('invalid');
+                    print('invalid login account');
                   }
                 },
                 child: const Text(
                   'Login',
                 ),
               ),
+            ),
+            const SizedBox(
+              height: 25.0,
+            ),
+            SizedBox(
+              height: 40.0,
+              width: 40.0,
+              child: _isProcessing ? const CircularProgressIndicator() : null,
             ),
           ],
         ),

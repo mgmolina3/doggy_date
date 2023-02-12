@@ -1,8 +1,12 @@
+import 'package:doggy_date/screens/profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import '../firebase_options.dart';
 import 'login_screen.dart';
+import 'profile_screen.dart';
+import '../utils/alerts.dart';
+import '../utils/errors.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:email_validator/email_validator.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -14,6 +18,9 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  bool _submitted = false;
+  bool _isProcessing = false;
 
   // Login function
   static Future<User?> registerUsingEmailPassword(
@@ -32,27 +39,48 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return user;
   }
 
+  String? get _errorTextEmail {
+    final text = _emailController.value.text;
+
+    if (text.isEmpty) {
+      return 'This field cannot be empty.';
+    }
+    if (!EmailValidator.validate(text)) {
+      return 'Invalid email format.';
+    }
+
+    return null;
+  }
+
+  String? get _errorTextPassword {
+    final text = _passwordController.value.text;
+    RegExp number = RegExp(r'\d+');
+    RegExp specialChar = RegExp(r'(@|#|!)+');
+
+    if (text.isEmpty) {
+      return 'This field cannot be empty.';
+    }
+
+    if (text.length < 6) {
+      return 'Password should be at least 6 characters long.';
+    }
+
+    if (!number.hasMatch(text)) {
+      return 'Password should contain at least one number.';
+    }
+
+    if (!specialChar.hasMatch(text)) {
+      return 'Password should contain at least one special character (!,@, or #)';
+    }
+
+    return null;
+  }
+
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
-  }
-
-  Future _showSuccessAlert() {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Success!'),
-            content: const Text('Successfully created your account.'),
-            actions: [
-              TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text('Dismiss')),
-            ],
-          );
-        });
   }
 
   @override
@@ -61,114 +89,144 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text(
-              'MyApp Title',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 28.0,
-                fontWeight: FontWeight.bold,
-              ),
+            const SizedBox(
+              height: 80,
             ),
-            const Text(
-              "Create your account",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 44.0,
-                fontWeight: FontWeight.bold,
-              ),
+            Image.asset(
+              'assets/image/logo.png',
+              alignment: Alignment.topCenter,
             ),
             const SizedBox(
-              height: 44.0,
+              height: 20,
             ),
-            TextField(
-              controller: _emailController,
-              keyboardType: TextInputType.emailAddress,
-              decoration: const InputDecoration(
-                hintText: "User Email",
-                prefixIcon: Icon(Icons.mail, color: Colors.black),
-              ),
-            ),
-            const SizedBox(
-              height: 26.0,
-            ),
-            TextField(
-              controller: _passwordController,
-              obscureText: true,
-              decoration: const InputDecoration(
-                hintText: "User Password",
-                prefixIcon: Icon(
-                  Icons.security,
-                  color: Colors.black,
+            const Center(
+              child: Text(
+                "Create your free account!",
+                style: TextStyle(
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
             const SizedBox(
-              height: 10.0,
+              height: 20.0,
+            ),
+            ValueListenableBuilder(
+              valueListenable: _emailController,
+              builder: (context, TextEditingValue value, __) {
+                return TextField(
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    hintText: "Your Email",
+                    errorText: _submitted ? _errorTextEmail : null,
+                    prefixIcon: const Icon(
+                      Icons.mail,
+                      color: Color.fromARGB(202, 53, 24, 12),
+                    ),
+                  ),
+                );
+              },
+            ),
+            const SizedBox(
+              height: 15.0,
+            ),
+            ValueListenableBuilder(
+              valueListenable: _passwordController,
+              builder: (context, TextEditingValue value, __) {
+                return TextField(
+                  controller: _passwordController,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    hintText: "Create a Password",
+                    errorText: _submitted ? _errorTextPassword : null,
+                    prefixIcon: const Icon(
+                      Icons.security,
+                      color: Color.fromARGB(202, 53, 24, 12),
+                    ),
+                  ),
+                );
+              },
+            ),
+            const SizedBox(
+              height: 15.0,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
                   "Already have an account?",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 18.0),
                 ),
                 GestureDetector(
-                  onTap: (() => Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => LoginScreen()))),
+                  onTap: () => Navigator.pushReplacement(
+                    context,
+                    PageTransition(
+                      child: LoginScreen(),
+                      type: PageTransitionType.leftToRightJoined,
+                      childCurrent: RegisterScreen(),
+                    ),
+                  ),
                   child: const Text(
-                    " Login",
+                    " Login here!",
                     style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(204, 255, 3, 93),
+                      fontSize: 18.0,
                     ),
                   ),
                 ),
               ],
             ),
-            const SizedBox(
-              height: 88.0,
-            ),
+            const SizedBox(height: 20.0),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () async {
-                  User? user = await registerUsingEmailPassword(
-                      email: _emailController.text,
-                      password: _passwordController.text,
-                      context: context);
-                  if (user != null) {
-                    await _showSuccessAlert();
-                    Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => LoginScreen()));
+                  setState(() => _submitted = true);
+                  if (_emailController.value.text.isNotEmpty &&
+                      _passwordController.value.text.isNotEmpty &&
+                      _errorTextEmail == null &&
+                      _errorTextPassword == null) {
+                    try {
+                      setState(() => _isProcessing = true);
+                      final credential = await FirebaseAuth.instance
+                          .createUserWithEmailAndPassword(
+                        email: _emailController.text,
+                        password: _passwordController.text,
+                      );
+                      setState(() => _isProcessing = false);
+                      if (credential.user != null) {
+                        await showSuccessAlert(
+                            context, 'Successfully created your account.');
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) =>
+                                ProfileScreen()));
+                      }
+                    } on FirebaseAuthException catch (e) {
+                      print(e);
+                      String errorMsg = handleAuthError(e);
+                      await showErrorAlert(context, errorMsg);
+                    } catch (e) {
+                      await showErrorAlert(context, defaultErrorMsg);
+                      print(e);
+                    }
                   }
                 },
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Color(0xFF0069FE)),
-                  elevation: MaterialStateProperty.all(0.0),
-                  padding: MaterialStateProperty.all(
-                    const EdgeInsets.symmetric(
-                      vertical: 20.0,
-                    ),
-                  ),
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                  ),
-                ),
                 child: const Text(
                   'Create Account',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18.0,
-                  ),
                 ),
               ),
+            ),
+            const SizedBox(
+              height: 25.0,
+            ),
+            SizedBox(
+              height: 40.0,
+              width: 40.0,
+              child: _isProcessing ? const CircularProgressIndicator() : null,
             ),
           ],
         ),

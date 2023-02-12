@@ -36,6 +36,9 @@ dependencies:
   # Firebase auth and firebase core
   firebase_auth: ^4.2.5
   firebase_core: ^2.4.1
+  animations: ^2.0.7
+  page_transition: ^2.0.9
+  email_validator: ^2.1.17
 
 dev_dependencies:
   flutter_test:

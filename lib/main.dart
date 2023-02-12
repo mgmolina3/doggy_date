@@ -47,6 +47,7 @@ class MyApp extends StatelessWidget {
               color: Colors.redAccent,
             ),
           ),
+          errorStyle: const TextStyle(fontSize: 12),
         ),
         textTheme: const TextTheme(bodyText2: TextStyle()).apply(
           bodyColor: const Color.fromARGB(203, 84, 38, 18),
@@ -74,6 +75,9 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
+        ),
+        progressIndicatorTheme: const ProgressIndicatorThemeData(
+          color: Color.fromARGB(202, 224, 44, 125),
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -8,11 +9,16 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  User? user = FirebaseAuth.instance.currentUser!;
+  //String? username = user.displayName;
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    String email = user!.email!;
+
+    return Scaffold(
       body: Center(
-        child: Text("Welcome to your profile page"),
+        child: Text("Welcome to your profile page $email"),
       ),
     );
   }
