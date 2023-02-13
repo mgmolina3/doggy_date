@@ -1,16 +1,10 @@
 # doggy_date
 
-A new Flutter project.
+## About
+A Flutter application for a dog dating app!
+Supported on iOS, Android, web, and MacOS.
 
-## Getting Started
+## Requirements for Installation and Running
+In order for this app to run, you must have Flutter installed on your device:
+https://docs.flutter.dev/get-started/install?gclsrc=aw.ds&gclid=CjwKCAiAuaKfBhBtEiwAht6H7yVd-8rcNA84-XGu9MNX_nOIagF5fPl5Z8r3tAjHBc8Rg5wbdqso3hoC-kYQAvD_BwE
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
