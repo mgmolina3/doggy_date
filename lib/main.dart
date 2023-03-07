@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Kalam',
           ),
         ),
-        scaffoldBackgroundColor: loginBackround,
+        scaffoldBackgroundColor: loginBackground,
         fontFamily: 'ComingSoon',
         inputDecorationTheme: InputDecorationTheme(
           hintStyle: TextStyle(
@@ -110,11 +110,17 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   // Initialize Firebase App
-  Future<FirebaseApp> _initializeFirebase() async {
-    FirebaseApp firebaseApp = await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    return firebaseApp;
+
+  Future<FirebaseApp?> _initializeFirebase() async {
+    try {
+      FirebaseApp firebaseApp = await Firebase.initializeApp(
+        //options: DefaultFirebaseOptions.currentPlatform,
+      );
+      return firebaseApp;
+    } on FirebaseException catch (e) {
+      print(e);
+      return null;
+    }
   }
 
   @override

@@ -44,40 +44,39 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAPhPkJhgF9P0rCg4EPvC-c8h-BXf7v8JY',
-    appId: '1:452423477297:web:7105a89b60afb6c7504d10',
-    messagingSenderId: '452423477297',
-    projectId: 'doggy-date-bb9d5',
-    authDomain: 'doggy-date-bb9d5.firebaseapp.com',
-    storageBucket: 'doggy-date-bb9d5.appspot.com',
-    measurementId: 'G-W26SQJZKJD',
+    apiKey: 'AIzaSyDQkqTaeUIQneXSXsl0hgYcGTH-2SoLLaI',
+    appId: '1:805640359232:web:97fd32ef2cd2c94f083ea5',
+    messagingSenderId: '805640359232',
+    projectId: 'doggy-date-ba90d',
+    authDomain: 'doggy-date-ba90d.firebaseapp.com',
+    storageBucket: 'doggy-date-ba90d.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyA8PE-1nzKPKSFzyZBIuwnd3PAEcWr4f7s',
-    appId: '1:452423477297:android:95cccb67e7906eb0504d10',
-    messagingSenderId: '452423477297',
-    projectId: 'doggy-date-bb9d5',
-    storageBucket: 'doggy-date-bb9d5.appspot.com',
+    apiKey: 'AIzaSyDxFcOQdj49lmAQ55ifdfLjzcjiajySBjg',
+    appId: '1:805640359232:android:9a67497a57325602083ea5',
+    messagingSenderId: '805640359232',
+    projectId: 'doggy-date-ba90d',
+    storageBucket: 'doggy-date-ba90d.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAgPrfs9asSdli7Lb6Cp4Gbso8fwYSo7SM',
-    appId: '1:452423477297:ios:b2d271e4f6abc3d1504d10',
-    messagingSenderId: '452423477297',
-    projectId: 'doggy-date-bb9d5',
-    storageBucket: 'doggy-date-bb9d5.appspot.com',
-    iosClientId: '452423477297-man2793a81cr9qbu5hdvlamf5t14r1i6.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCPSpFGydjrJktXo0UoxoR7BkP5q_x3ArM',
+    appId: '1:805640359232:ios:94edf7332e14afac083ea5',
+    messagingSenderId: '805640359232',
+    projectId: 'doggy-date-ba90d',
+    storageBucket: 'doggy-date-ba90d.appspot.com',
+    iosClientId: '805640359232-gjevnh7casli7h1qjk84r900gu38ortv.apps.googleusercontent.com',
     iosBundleId: 'com.example.doggyDate',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAgPrfs9asSdli7Lb6Cp4Gbso8fwYSo7SM',
-    appId: '1:452423477297:ios:b2d271e4f6abc3d1504d10',
-    messagingSenderId: '452423477297',
-    projectId: 'doggy-date-bb9d5',
-    storageBucket: 'doggy-date-bb9d5.appspot.com',
-    iosClientId: '452423477297-man2793a81cr9qbu5hdvlamf5t14r1i6.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCPSpFGydjrJktXo0UoxoR7BkP5q_x3ArM',
+    appId: '1:805640359232:ios:94edf7332e14afac083ea5',
+    messagingSenderId: '805640359232',
+    projectId: 'doggy-date-ba90d',
+    storageBucket: 'doggy-date-ba90d.appspot.com',
+    iosClientId: '805640359232-gjevnh7casli7h1qjk84r900gu38ortv.apps.googleusercontent.com',
     iosBundleId: 'com.example.doggyDate',
   );
 }

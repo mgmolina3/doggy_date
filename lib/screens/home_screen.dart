@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:page_transition/page_transition.dart';
 import 'login_screen.dart';
 import 'package:doggy_date/utils/custom_colors.dart';
+import 'package:doggy_date/utils/custome_widgets.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -14,6 +15,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key
+
   int _selectedTab = 0;
   bool _isProcessing = false;
   final _lookingForMate = 'looking for a mate';
@@ -45,15 +48,16 @@ class _HomeScreenState extends State<HomeScreen> {
     List<Color> femaleColors = [femaleDarkPink, femaleLightPink];
     List<Color> maleColors = [maleDarkBlue, maleLightBlue];
     List<Color> getProfileBorderColors = _isFemale ? femaleColors : maleColors;
-    Color pawIconColor = _isFemale ? femaleIconPink : maleIconBlue;
     String getOppositeStatus = _currentStatus == _lookingForMate
         ? _notLookingForMate
         : _lookingForMate;
     Icon currentStatusIcon = _currentStatus == _lookingForMate
-        ? Icon(Icons.favorite, color: loginBackround, size: 13)
-        : Icon(CustomIcons.paw, color: loginBackround, size: 13);
+        ? Icon(Icons.favorite, color: loginBackground, size: 13)
+        : Icon(CustomIcons.paw, color: loginBackground, size: 13);
 
     return Scaffold(
+      key: _key,
+      drawer: settingsDrawer,
       appBar: AppBar(
         title: const Text('Home'),
         backgroundColor: _isFemale ? femaleDarkPink : maleDarkBlue,
@@ -98,13 +102,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 end: Alignment.bottomCenter,
               ),
               borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.elliptical(300, 85), //Radius.circular(350),
-                bottomRight: Radius.elliptical(300, 85), //Radius.circular(350),
+                bottomLeft: Radius.elliptical(250, 100), //Radius.circular(350),
+                bottomRight:
+                    Radius.elliptical(250, 100), //Radius.circular(350),
               ),
               boxShadow: const [
                 BoxShadow(
-                  blurRadius: 35,
-                  spreadRadius: 5,
+                  blurRadius: 10,
+                  spreadRadius: 1,
                 ),
                 BoxShadow(
                   color: Colors.white,
@@ -116,6 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.all(15),
             child: Column(
               children: [
+                const SizedBox(height: 15),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(100),
                   child: const CircleAvatar(
@@ -134,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           fontSize: 30,
                           fontFamily: 'Shantell',
                           fontWeight: FontWeight.bold,
-                          color: loginBackround,
+                          color: loginBackground,
                         ),
                       ),
                     ),
@@ -145,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           fontSize: 30,
                           fontFamily: 'Shantell',
                           fontWeight: FontWeight.w400,
-                          color: loginBackround,
+                          color: loginBackground,
                         ),
                       ),
                     ),
@@ -162,65 +168,61 @@ class _HomeScreenState extends State<HomeScreen> {
                         fontFamily: 'Shantell',
                         fontWeight: FontWeight.bold,
                         fontStyle: FontStyle.italic,
-                        color: loginBackround,
+                        color: loginBackground,
                       ),
                     ),
                     currentStatusIcon,
                   ],
                 ),
+                const SizedBox(height: 55),
+                circleButton(CustomIcons.paw, () {}),
+                const SizedBox(height: 15),
+                circleButtonText('FIND A MATE', 16, color: white),
                 const SizedBox(height: 25),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
-                      children: [
-                        Icon(Icons.settings, size: 30, color: white),
-                        Text(
-                          'Settings',
-                          style: TextStyle(
-                            fontFamily: 'Shantell',
-                            fontSize: 15,
-                            color: white,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: 10),
-                    Column(
-                      children: [
-                        Icon(Icons.home, size: 30, color: white),
-                        Text(
-                          'Home',
-                          style: TextStyle(
-                            fontFamily: 'Shantell',
-                            fontSize: 15,
-                            color: white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Icon(Icons.phone, size: 30, color: loginBackround),
-                SizedBox(height: 15),
               ],
             ),
           ),
-          SizedBox(
-            height: 40.0,
-            width: 40.0,
-            child: _isProcessing ? const CircularProgressIndicator() : null,
+          const SizedBox(height: 25),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Column(
+                children: [
+                  circleButton(Icons.favorite, () {}),
+                  const SizedBox(height: 15),
+                  circleButtonText('BREEDING', 13),
+                ],
+              ),
+              Column(
+                // Center Button
+                children: [
+                  const SizedBox(height: 55),
+                  circleButton(Icons.check_box_rounded, () {}),
+                  const SizedBox(height: 15),
+                  circleButtonText('LEGAL', 13),
+                ],
+              ),
+              Column(
+                children: [
+                  circleButton(Icons.tips_and_updates, () {}),
+                  const SizedBox(height: 15),
+                  circleButtonText('TIPS', 13),
+                ],
+              ),
+            ],
           ),
         ],
       ),
+
+      // SizedBox(
+      //   height: 40.0,
+      //   width: 40.0,
+      //   child: _isProcessing ? const CircularProgressIndicator() : null,
+      // ),
       bottomNavigationBar: BottomNavigationBar(
-        items: [
-          const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
           BottomNavigationBarItem(
-            icon: Icon(CustomIcons.paw, color: pawIconColor),
-            label: 'find a mate©',
-          ),
-          const BottomNavigationBarItem(
             icon: Icon(Icons.message_rounded),
             label: 'inbox',
           )
