@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>452423477297-man2793a81cr9qbu5hdvlamf5t14r1i6.apps.googleusercontent.com</string>
+	<string>84066150391-h46cocv36v0ba6up82lbq6q138o19t43.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.452423477297-man2793a81cr9qbu5hdvlamf5t14r1i6</string>
+	<string>com.googleusercontent.apps.84066150391-h46cocv36v0ba6up82lbq6q138o19t43</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAgPrfs9asSdli7Lb6Cp4Gbso8fwYSo7SM</string>
+	<string>AIzaSyBd62_MG1eDnoXXtnm7ROsio-sJF7CIUBk</string>
 	<key>GCM_SENDER_ID</key>
-	<string>452423477297</string>
+	<string>84066150391</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.example.doggyDate</string>
 	<key>PROJECT_ID</key>
-	<string>doggy-date-bb9d5</string>
+	<string>doggy-date-app</string>
 	<key>STORAGE_BUCKET</key>
-	<string>doggy-date-bb9d5.appspot.com</string>
+	<string>doggy-date-app.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:452423477297:ios:b2d271e4f6abc3d1504d10</string>
+	<string>1:84066150391:ios:8a5b70ede42be4bb4430f2</string>
 </dict>
 </plist>

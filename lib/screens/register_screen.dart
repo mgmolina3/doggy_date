@@ -1,8 +1,8 @@
-import 'package:doggy_date/screens/profile_screen.dart';
+import 'package:doggy_date/utils/custom_colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'create_profile_screen.dart';
 import 'login_screen.dart';
-import 'profile_screen.dart';
 import '../utils/alerts.dart';
 import '../utils/errors.dart';
 import 'package:page_transition/page_transition.dart';
@@ -100,7 +100,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               alignment: Alignment.topCenter,
             ),
             const SizedBox(
-              height: 20,
+              height: 25,
             ),
             const Center(
               child: Text(
@@ -123,9 +123,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   decoration: InputDecoration(
                     hintText: "Your Email",
                     errorText: _submitted ? _errorTextEmail : null,
-                    prefixIcon: const Icon(
+                    prefixIcon: Icon(
                       Icons.mail,
-                      color: Color.fromARGB(202, 53, 24, 12),
+                      color: iconDarkGray,
                     ),
                   ),
                 );
@@ -143,9 +143,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   decoration: InputDecoration(
                     hintText: "Create a Password",
                     errorText: _submitted ? _errorTextPassword : null,
-                    prefixIcon: const Icon(
+                    prefixIcon: Icon(
                       Icons.security,
-                      color: Color.fromARGB(202, 53, 24, 12),
+                      color: iconDarkGray,
                     ),
                   ),
                 );
@@ -170,10 +170,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       childCurrent: RegisterScreen(),
                     ),
                   ),
-                  child: const Text(
+                  child: Text(
                     " Login here!",
                     style: TextStyle(
-                      color: Color.fromARGB(204, 255, 3, 93),
+                      color: pinkText,
                       fontSize: 18.0,
                     ),
                   ),
@@ -202,15 +202,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         await showSuccessAlert(
                             context, 'Successfully created your account.');
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) =>
-                                ProfileScreen()));
+                            builder: (context) => CreateProfileScreen()));
                       }
                     } on FirebaseAuthException catch (e) {
                       print(e);
                       String errorMsg = handleAuthError(e);
                       await showErrorAlert(context, errorMsg);
+                      setState(() => _isProcessing = false);
                     } catch (e) {
                       await showErrorAlert(context, defaultErrorMsg);
+                      setState(() => _isProcessing = false);
                       print(e);
                     }
                   }

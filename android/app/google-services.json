@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "452423477297",
-    "project_id": "doggy-date-bb9d5",
-    "storage_bucket": "doggy-date-bb9d5.appspot.com"
+    "project_number": "84066150391",
+    "project_id": "doggy-date-app",
+    "storage_bucket": "doggy-date-app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:452423477297:android:95cccb67e7906eb0504d10",
+        "mobilesdk_app_id": "1:84066150391:android:d02b7968bad3497a4430f2",
         "android_client_info": {
           "package_name": "com.example.doggy_date"
         }
       },
       "oauth_client": [
         {
-          "client_id": "452423477297-gp1mipk2jfm1onhsrl97afb5g1e2gd57.apps.googleusercontent.com",
+          "client_id": "84066150391-tihpi7feb85nte0tmsi9u92i8dtud6h7.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA8PE-1nzKPKSFzyZBIuwnd3PAEcWr4f7s"
+          "current_key": "AIzaSyCh93wLDHkHi3z0HfJdpqPXFnobyTTH0VE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "452423477297-gp1mipk2jfm1onhsrl97afb5g1e2gd57.apps.googleusercontent.com",
+              "client_id": "84066150391-tihpi7feb85nte0tmsi9u92i8dtud6h7.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

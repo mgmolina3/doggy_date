@@ -1,5 +1,8 @@
+import 'package:doggy_date/utils/custom_colors.dart';
 import 'package:page_transition/page_transition.dart';
-import 'profile_screen.dart';
+import '../utils/alerts.dart';
+import '../utils/errors.dart';
+import 'home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'register_screen.dart';
@@ -17,25 +20,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool _submitted = false;
   bool _isProcessing = false;
-
-  // Login function
-  static Future<User?> loginUsingEmailPassword(
-      {required String email,
-      required String password,
-      required BuildContext context}) async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    User? user;
-    try {
-      UserCredential userCredential = await auth.signInWithEmailAndPassword(
-          email: email, password: password);
-      user = userCredential.user;
-    } on FirebaseAuthException catch (e) {
-      if (e.code == "user-not-found") {
-        print("No user found for that email");
-      }
-    }
-    return user;
-  }
 
   String? get _errorTextEmail {
     final text = _emailController.value.text;
@@ -79,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
               alignment: Alignment.topCenter,
             ),
             const SizedBox(
-              height: 20,
+              height: 25,
             ),
             const Center(
               child: Text(
@@ -102,9 +86,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   decoration: InputDecoration(
                     hintText: "User Email",
                     errorText: _submitted ? _errorTextEmail : null,
-                    prefixIcon: const Icon(
+                    prefixIcon: Icon(
                       Icons.mail,
-                      color: Color.fromARGB(202, 53, 24, 12),
+                      color: iconDarkGray,
                     ),
                   ),
                 );
@@ -122,9 +106,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   decoration: InputDecoration(
                     hintText: "User Password",
                     errorText: _submitted ? _errorTextPassword : null,
-                    prefixIcon: const Icon(
+                    prefixIcon: Icon(
                       Icons.security,
-                      color: Color.fromARGB(202, 53, 24, 12),
+                      color: iconDarkGray,
                     ),
                   ),
                 );
@@ -149,10 +133,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       childCurrent: LoginScreen(),
                     ),
                   ),
-                  child: const Text(
+                  child: Text(
                     " Create one now!",
                     style: TextStyle(
-                      color: Color.fromARGB(204, 255, 3, 95),
+                      color: pinkText,
                       fontSize: 18.0,
                     ),
                   ),
@@ -169,18 +153,27 @@ class _LoginScreenState extends State<LoginScreen> {
                   setState(() => _submitted = true);
                   if (_emailController.value.text.isNotEmpty &&
                       _passwordController.value.text.isNotEmpty) {
-                    setState(() => _isProcessing = true);
-                    User? user = await loginUsingEmailPassword(
-                        email: _emailController.text,
-                        password: _passwordController.text,
-                        context: context);
-                    setState(() => _isProcessing = false);
-                    if (user != null) {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => ProfileScreen()));
+                    try {
+                      setState(() => _isProcessing = true);
+                      final credential = await FirebaseAuth.instance
+                          .signInWithEmailAndPassword(
+                              email: _emailController.text,
+                              password: _passwordController.text);
+                      setState(() => _isProcessing = false);
+                      if (credential.user != null) {
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => HomeScreen()));
+                      }
+                    } on FirebaseAuthException catch (e) {
+                      print(e);
+                      String errorMsg = handleAuthError(e);
+                      await showErrorAlert(context, errorMsg);
+                      setState(() => _isProcessing = false);
+                    } catch (e) {
+                      await showErrorAlert(context, defaultErrorMsg);
+                      print(e);
+                      setState(() => _isProcessing = false);
                     }
-                  } else {
-                    print('invalid login account');
                   }
                 },
                 child: const Text(

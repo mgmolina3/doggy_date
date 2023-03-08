@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'firebase_options.dart';
 import 'screens/login_screen.dart';
+import 'package:doggy_date/utils/custom_colors.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,23 +16,40 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: const HomePage(),
       theme: ThemeData(
-        scaffoldBackgroundColor: const Color.fromARGB(255, 251, 231, 239),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: homeBackground,
+          elevation: 0,
+          selectedIconTheme: IconThemeData(color: iconDarkGray, size: 28),
+          unselectedIconTheme: IconThemeData(color: grayText, size: 25),
+          selectedItemColor: iconDarkGray,
+          unselectedItemColor: grayText,
+          selectedLabelStyle: const TextStyle(
+            fontSize: 18,
+            fontFamily: 'Kalam',
+            fontWeight: FontWeight.bold,
+          ),
+          unselectedLabelStyle: const TextStyle(
+            fontSize: 16,
+            fontFamily: 'Kalam',
+          ),
+        ),
+        scaffoldBackgroundColor: loginBackground,
         fontFamily: 'ComingSoon',
         inputDecorationTheme: InputDecorationTheme(
-          hintStyle: const TextStyle(
-            color: Color.fromARGB(202, 105, 48, 23),
+          hintStyle: TextStyle(
+            color: black,
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
+            borderSide: BorderSide(
               width: 2,
-              color: Color.fromARGB(180, 211, 156, 129),
+              color: unfocusedBorderGray,
             ),
             borderRadius: BorderRadius.circular(7.0),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
+            borderSide: BorderSide(
               width: 2,
-              color: Color.fromARGB(203, 84, 38, 18),
+              color: black,
             ),
             borderRadius: BorderRadius.circular(7.0),
           ),
@@ -50,7 +68,7 @@ class MyApp extends StatelessWidget {
           errorStyle: const TextStyle(fontSize: 12),
         ),
         textTheme: const TextTheme(bodyText2: TextStyle()).apply(
-          bodyColor: const Color.fromARGB(203, 84, 38, 18),
+          bodyColor: black,
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
@@ -61,8 +79,7 @@ class MyApp extends StatelessWidget {
                 fontFamily: 'ComingSoon',
               ),
             ),
-            backgroundColor: MaterialStateProperty.all(
-                const Color.fromARGB(202, 224, 44, 125)),
+            backgroundColor: MaterialStateProperty.all(buttonGray),
             elevation: MaterialStateProperty.all(0.0),
             padding: MaterialStateProperty.all(
               const EdgeInsets.symmetric(
@@ -76,8 +93,8 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        progressIndicatorTheme: const ProgressIndicatorThemeData(
-          color: Color.fromARGB(202, 224, 44, 125),
+        progressIndicatorTheme: ProgressIndicatorThemeData(
+          color: black,
         ),
       ),
     );
@@ -93,11 +110,17 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   // Initialize Firebase App
-  Future<FirebaseApp> _initializeFirebase() async {
-    FirebaseApp firebaseApp = await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    return firebaseApp;
+
+  Future<FirebaseApp?> _initializeFirebase() async {
+    try {
+      FirebaseApp firebaseApp = await Firebase.initializeApp(
+        //options: DefaultFirebaseOptions.currentPlatform,
+      );
+      return firebaseApp;
+    } on FirebaseException catch (e) {
+      print(e);
+      return null;
+    }
   }
 
   @override
