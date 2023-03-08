@@ -1,6 +1,9 @@
+import 'package:doggy_date/utils/alerts.dart';
 import 'package:doggy_date/utils/custom_colors.dart';
 import 'package:doggy_date/utils/custom_icons.dart';
+import 'package:doggy_date/utils/errors.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class CreateProfileScreen extends StatefulWidget {
@@ -29,14 +32,19 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseFirestore db = FirebaseFirestore.instance;
+    User? user = FirebaseAuth.instance.currentUser!;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create Your Profile'),
+        title: Text(
+          'Create Your Profile',
+          style: TextStyle(color: black),
+        ),
         backgroundColor: homeBackground,
       ),
       backgroundColor: white,
-      body:
-          Column(), /*Column(
+      body: Column(
         children: [
           const Text(
             "Welcome to Doggy Date, where our goal is to find your furry friend a mate!",
@@ -109,29 +117,32 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                 //setState(() => _submitted = true);
                 if (_ownerNameController.value.text.isNotEmpty &&
                     _dogNameController.value.text.isNotEmpty) {
-                  try {
-                    //setState(() => _isProcessing = true);
-                    final user = {
-                      "ownerName": _ownerNameController.value.text,
-                      "dogName": _dogNameController.value.text,
-                      "dogSex": dogSexValue
-                    };
+                  //setState(() => _isProcessing = true);
+                  final newUser = {
+                    "ownerName": _ownerNameController.value.text,
+                    "dogName": _dogNameController.value.text,
+                    "dogSex": dogSexValue
+                  };
 
-                    //setState(() => _isProcessing = false);
-                    if (credential.user != null) {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => HomeScreen()));
-                    }
-                  } on FirebaseAuthException catch (e) {
+                  // update the user's display name to be the owner's name
+                  user.updateDisplayName(_ownerNameController.value.text);
+                  // add the newly created user to the users db in Firestore
+                  try {
+                    db.collection("users").doc(user.email).set(newUser);
+                    print("success");
+                  } on FirebaseException catch (e) {
                     print(e);
-                    String errorMsg = handleAuthError(e);
-                    await showErrorAlert(context, errorMsg);
-                    setState(() => _isProcessing = false);
+                    await showErrorAlert(context, defaultErrorMsg);
                   } catch (e) {
                     await showErrorAlert(context, defaultErrorMsg);
                     print(e);
-                    setState(() => _isProcessing = false);
                   }
+
+                  //setState(() => _isProcessing = false);
+                  // if (credential.user != null) {
+                  //   Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  //       builder: (context) => HomeScreen()));
+                  // }
                 }
               },
               child: const Text(
@@ -140,7 +151,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
             ),
           ),
         ],
-      ),*/
+      ),
     );
   }
 }

@@ -21,25 +21,6 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _submitted = false;
   bool _isProcessing = false;
 
-  // Login function
-  static Future<User?> loginUsingEmailPassword(
-      {required String email,
-      required String password,
-      required BuildContext context}) async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    User? user;
-    try {
-      UserCredential userCredential = await auth.signInWithEmailAndPassword(
-          email: email, password: password);
-      user = userCredential.user;
-    } on FirebaseAuthException catch (e) {
-      if (e.code == "user-not-found") {
-        print("No user found for that email");
-      }
-    }
-    return user;
-  }
-
   String? get _errorTextEmail {
     final text = _emailController.value.text;
 

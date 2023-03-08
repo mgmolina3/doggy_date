@@ -44,39 +44,39 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDQkqTaeUIQneXSXsl0hgYcGTH-2SoLLaI',
-    appId: '1:805640359232:web:97fd32ef2cd2c94f083ea5',
-    messagingSenderId: '805640359232',
-    projectId: 'doggy-date-ba90d',
-    authDomain: 'doggy-date-ba90d.firebaseapp.com',
-    storageBucket: 'doggy-date-ba90d.appspot.com',
+    apiKey: 'AIzaSyATrcVmulhrWZLAuQhPIkTevo95Kx5rP1s',
+    appId: '1:84066150391:web:c16cd9bce7726d0b4430f2',
+    messagingSenderId: '84066150391',
+    projectId: 'doggy-date-app',
+    authDomain: 'doggy-date-app.firebaseapp.com',
+    storageBucket: 'doggy-date-app.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDxFcOQdj49lmAQ55ifdfLjzcjiajySBjg',
-    appId: '1:805640359232:android:9a67497a57325602083ea5',
-    messagingSenderId: '805640359232',
-    projectId: 'doggy-date-ba90d',
-    storageBucket: 'doggy-date-ba90d.appspot.com',
+    apiKey: 'AIzaSyCh93wLDHkHi3z0HfJdpqPXFnobyTTH0VE',
+    appId: '1:84066150391:android:d02b7968bad3497a4430f2',
+    messagingSenderId: '84066150391',
+    projectId: 'doggy-date-app',
+    storageBucket: 'doggy-date-app.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCPSpFGydjrJktXo0UoxoR7BkP5q_x3ArM',
-    appId: '1:805640359232:ios:94edf7332e14afac083ea5',
-    messagingSenderId: '805640359232',
-    projectId: 'doggy-date-ba90d',
-    storageBucket: 'doggy-date-ba90d.appspot.com',
-    iosClientId: '805640359232-gjevnh7casli7h1qjk84r900gu38ortv.apps.googleusercontent.com',
+    apiKey: 'AIzaSyBd62_MG1eDnoXXtnm7ROsio-sJF7CIUBk',
+    appId: '1:84066150391:ios:8a5b70ede42be4bb4430f2',
+    messagingSenderId: '84066150391',
+    projectId: 'doggy-date-app',
+    storageBucket: 'doggy-date-app.appspot.com',
+    iosClientId: '84066150391-h46cocv36v0ba6up82lbq6q138o19t43.apps.googleusercontent.com',
     iosBundleId: 'com.example.doggyDate',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCPSpFGydjrJktXo0UoxoR7BkP5q_x3ArM',
-    appId: '1:805640359232:ios:94edf7332e14afac083ea5',
-    messagingSenderId: '805640359232',
-    projectId: 'doggy-date-ba90d',
-    storageBucket: 'doggy-date-ba90d.appspot.com',
-    iosClientId: '805640359232-gjevnh7casli7h1qjk84r900gu38ortv.apps.googleusercontent.com',
+    apiKey: 'AIzaSyBd62_MG1eDnoXXtnm7ROsio-sJF7CIUBk',
+    appId: '1:84066150391:ios:8a5b70ede42be4bb4430f2',
+    messagingSenderId: '84066150391',
+    projectId: 'doggy-date-app',
+    storageBucket: 'doggy-date-app.appspot.com',
+    iosClientId: '84066150391-h46cocv36v0ba6up82lbq6q138o19t43.apps.googleusercontent.com',
     iosBundleId: 'com.example.doggyDate',
   );
 }
