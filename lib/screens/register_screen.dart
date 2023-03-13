@@ -1,7 +1,7 @@
 import 'package:doggy_date/utils/custom_colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'create_profile_screen.dart';
+import 'create_owner_profile_screen.dart';
 import 'login_screen.dart';
 import '../utils/alerts.dart';
 import '../utils/errors.dart';
@@ -202,7 +202,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         await showSuccessAlert(
                             context, 'Successfully created your account.');
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => CreateProfileScreen()));
+                            builder: (context) => CreateOwnerProfileScreen()));
                       }
                     } on FirebaseAuthException catch (e) {
                       print(e);
