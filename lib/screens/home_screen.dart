@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // TODO: use firebase to access this info
   Image _profileImage = Image.asset('assets/image/dolce.png');
-  bool _isFemale = true;
+  bool _isFemale = false;
   String _username = 'monanina13';
   String _currentStatus = 'looking for a mate';
   String _dogName = 'Dolce';

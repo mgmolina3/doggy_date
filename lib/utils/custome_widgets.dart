@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'custom_colors.dart';
 
+// custom drawer for the settings
 Drawer settingsDrawer = Drawer(
   backgroundColor: white,
   child: ListView(
@@ -51,6 +52,7 @@ Drawer settingsDrawer = Drawer(
   ),
 );
 
+// custome circle button with icon
 Container circleButton(IconData icon, void Function() onPressedAction) =>
     Container(
       decoration: BoxDecoration(
@@ -79,6 +81,7 @@ Container circleButton(IconData icon, void Function() onPressedAction) =>
       ),
     );
 
+// custom circle button with text (no icon)
 Text circleButtonText(String text, double size,
         {Color color = const Color.fromARGB(255, 145, 145, 145)}) =>
     Text(
@@ -90,3 +93,28 @@ Text circleButtonText(String text, double size,
         fontWeight: FontWeight.bold,
       ),
     );
+
+// custom dropdown button with title
+Row textDropdownButton(
+    title, value, items, void Function(Object?) onChangedAction) {
+  return Row(
+    children: [
+      Text(title),
+      DropdownButton(
+        value: value,
+        items: mapItems(items),
+        onChanged: onChangedAction,
+      ),
+    ],
+  );
+}
+
+List<DropdownMenuItem<Object>>? mapItems(items) {
+  List<DropdownMenuItem<Object>> list = [];
+  for (var item in items) {
+    DropdownMenuItem<Object> dropdownMenuItem =
+        DropdownMenuItem(value: item, child: Text(item));
+    list.add(dropdownMenuItem);
+  }
+  return list;
+}

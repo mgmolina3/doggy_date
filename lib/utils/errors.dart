@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-const String defaultErrorMsg = 'Unable to process your request at this moment. Please try again later.';
+const String defaultErrorMsg =
+    'Unable to process your request at this moment. Please try again later.';
 
 String handleAuthError(FirebaseAuthException exception) {
   switch (exception.code) {
@@ -12,6 +13,8 @@ String handleAuthError(FirebaseAuthException exception) {
       return 'Incorrect password. Please try again.';
     case 'email-already-in-use':
       return 'An account already exists with that email. Please try again.';
+    case 'network-request-failed':
+      return 'Network error: please check your internet connection and try agan.';
     default:
       return 'Unable to process your request at this moment. Please try again later.';
   }
